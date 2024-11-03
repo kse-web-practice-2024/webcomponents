@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            margin: 0;
+            padding: 20px;
+            list-style: none;
+            font-size: 16px;
+        }
+
+        li {
+            padding: 20px;
+            border: 1px solid red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <ul></ul>
+
+    <script>
+        const data = Array.from({length: 50}, () => Math.ceil(Math.random() * 100));
+
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: [],
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(console.log);
+        }, options)
+
+        const root = document.querySelector('ul');
+        data.forEach(num => {
+            const li = document.createElement("li");
+            li.innerText = num;
+            root.appendChild(li)
+            observer.observe(li);
+        })
+    </script>
+</body>
+</html>
