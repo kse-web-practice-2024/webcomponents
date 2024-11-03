@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        span {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <some-component some="2">
+        <span slot="counter">22</span>
+    </some-component>
+
+
+    <template id="shadow-content">
+        <style>
+            span {
+                color: red;
+            }
+        </style>
+        <span>
+            Counter
+            <slot name="counter">0</slot>
+        </span>
+    </template>
+
+    <script>
+        class SomeComponent extends HTMLElement {
+            static observedAttributes = ["some", "other"];
+        }
+
+        customElements.define("some-component", SomeComponent);
+
+        const host = document.querySelector("some-component");
+        const shadow = host.attachShadow({ mode: "open" });
+        const template = document.querySelector('#shadow-content');
+        shadow.appendChild(template.content);
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <some-component some="2">
+        Some content
+    </some-component>
+
+
+    <script>
+        class SomeComponent extends HTMLElement {
+            static observedAttributes = ["some", "other"];
+            constructor() {
+                super();
+            }
+
+            attributeChangedCallback(name, oldValue, newValue) {
+                console.log(name, oldValue, newValue)
+            }
+        }
+
+        customElements.define("some-component", SomeComponent);
+
+        const host = document.querySelector("some-component");
+        const shadow = host.attachShadow({ mode: "open" });
+        const span = document.createElement("span");
+        span.textContent = "I'm in the shadow DOM";
+
+        shadow.appendChild(span);
+
+    </script>
+</body>
+</html>
